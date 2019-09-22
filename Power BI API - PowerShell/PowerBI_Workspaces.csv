@@ -1,0 +1,3 @@
+#TYPE Microsoft.PowerBI.Common.Api.Workspaces.Workspace
+"Id","Name","IsReadOnly","IsOnDedicatedCapacity","CapacityId","Description","Type","State","IsOrphaned","Users"
+"ffffffff-ffff-ffff-ffff-ffffffffffff","IT -Testing","False","True","AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",,,,"False",

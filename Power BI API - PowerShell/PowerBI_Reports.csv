@@ -1,0 +1,3 @@
+#TYPE Microsoft.PowerBI.Common.Api.Reports.Report
+"WorkspaceId","Id","Name","WebUrl","EmbedUrl","DatasetId"
+"ffffffff-ffff-ffff-ffff-ffffffffffff","eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee","Demo Report","https://app.powerbi.com/groups/ffffffff-ffff-ffff-ffff-ffffffffffff/reports/eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee","https://app.powerbi.com/reportEmbed?reportId=eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee&groupId=ffffffff-ffff-ffff-ffff-ffffffffffff&config=yJjbHVzdGVyVXJsI","dddddddd-dddd-dddd-dddd-dddddddddddd"

@@ -1,0 +1,843 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/28/2019 1:54:05 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JPLT"
+  DTS:CreatorName="jpries"
+  DTS:DTSID="{9F8451C5-DC95-477B-A850-0C0EF57CE524}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{B71C22E7-AD6D-4647-BC6C-89F0A43B2D09}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FlatFile_Source_PowerBI CSV]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{B9432AE3-724E-499E-9D51-76AF1F5D38A7}"
+      DTS:ObjectName="FlatFile_Source_PowerBI CSV">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowsToSkip="1"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Jeff\VS\GitHub\BI_Tools\Power BI API - PowerShell\PowerBI_Workspaces.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="40"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Id"
+              DTS:DTSID="{7BA6072E-4278-433C-B6A8-CF5C1A0B95B5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="200"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Name"
+              DTS:DTSID="{5876486E-847B-4BC5-A2C8-709A5ECF1B88}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="IsReadOnly"
+              DTS:DTSID="{CA63EF07-9189-41A5-8490-AA6C06CA2418}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="IsOnDedicatedCapacity"
+              DTS:DTSID="{05DD7E19-3A72-44DB-B17C-488A479F2C8D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="40"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="CapacityId"
+              DTS:DTSID="{580FE60F-94BD-4983-A20E-001445AD4D50}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="1000"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Description"
+              DTS:DTSID="{3B2B7228-D0C2-4273-AA6B-497B34E65EC4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="500"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Type"
+              DTS:DTSID="{00FAD658-CFC8-4703-9709-E7BB24FBAA2A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="500"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="State"
+              DTS:DTSID="{EE4913CD-C039-4DE1-8F70-3695D4DFA3CE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="11"
+              DTS:TextQualified="True"
+              DTS:ObjectName="IsOrphaned"
+              DTS:DTSID="{CD0A4692-13EC-4F9F-BF46-6F5F27C09512}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="500"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Users"
+              DTS:DTSID="{A71CEF79-8B5F-41B5-A28A-B78DEB3FEE08}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task - Power BI Workspace"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{953770ED-26E1-405D-BF0B-35BF11011958}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task - Power BI Workspace"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="Flat File Source - Power BI CSV"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FlatFile_Source_PowerBI CSV]"
+                  connectionManagerRefId="Package.ConnectionManagers[FlatFile_Source_PowerBI CSV]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Id]"
+                      length="40"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Name]"
+                      length="200"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsReadOnly]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsReadOnly]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsReadOnly]"
+                      name="IsReadOnly"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOnDedicatedCapacity]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsOnDedicatedCapacity]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOnDedicatedCapacity]"
+                      name="IsOnDedicatedCapacity"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[CapacityId]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[CapacityId]"
+                      length="40"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[CapacityId]"
+                      name="CapacityId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Description]"
+                      length="1000"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Type]"
+                      length="500"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Type]"
+                      name="Type"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[State]"
+                      length="500"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOrphaned]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsOrphaned]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOrphaned]"
+                      name="IsOrphaned"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Users]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Users]"
+                      length="500"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Users]"
+                      name="Users"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsReadOnly]"
+                      dataType="bool"
+                      name="IsReadOnly" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsOnDedicatedCapacity]"
+                      dataType="bool"
+                      name="IsOnDedicatedCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[CapacityId]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="CapacityId" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="Type" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[IsOrphaned]"
+                      dataType="bool"
+                      name="IsOrphaned" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].ExternalColumns[Users]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="Users" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination - PowerShell_PBIWorkspace"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PowerShell_PBIWorkspace]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Connections[OleDbConnection]"
+                  connectionManagerID="{B1B48B74-DD04-4E08-94C7-DBADFD4CC7AE}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OLEDB_Dest_BITools]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[IsReadOnly]"
+                      cachedDataType="bool"
+                      cachedName="IsReadOnly"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsReadOnly]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsReadOnly]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[IsOnDedicatedCapacity]"
+                      cachedDataType="bool"
+                      cachedName="IsOnDedicatedCapacity"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsOnDedicatedCapacity]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOnDedicatedCapacity]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[CapacityId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="CapacityId"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[CapacityID]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[CapacityId]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[Description]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1000"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[Type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="Type"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Type]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[IsOrphaned]"
+                      cachedDataType="bool"
+                      cachedName="IsOrphaned"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsOrphaned]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[IsOrphaned]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].Columns[Users]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="Users"
+                      externalMetadataColumnId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Users]"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output].Columns[Users]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsReadOnly]"
+                      dataType="bool"
+                      name="IsReadOnly" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsOnDedicatedCapacity]"
+                      dataType="bool"
+                      name="IsOnDedicatedCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="Type" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[IsOrphaned]"
+                      dataType="bool"
+                      name="IsOrphaned" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[Users]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="Users" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input].ExternalColumns[CapacityID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="CapacityID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task - Power BI Workspace.Paths[Flat File Source Output]"
+              endId="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL - Truncate PowerShell_PBIWorkspace"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{CF815A6B-48E6-43DA-BDE6-D3B8F41F7800}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL - Truncate PowerShell_PBIWorkspace"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B1B48B74-DD04-4E08-94C7-DBADFD4CC7AE}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.PowerShell_PBIWorkspace" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2B4D9298-5A29-49B9-B696-7CEF314CCAFF}"
+      DTS:From="Package\Execute SQL - Truncate PowerShell_PBIWorkspace"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Data Flow Task - Power BI Workspace" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="258.4,41.6"
+          Id="Package\Data Flow Task - Power BI Workspace"
+          TopLeft="30,142" />
+        <NodeLayout
+          Size="317.6,41.6"
+          Id="Package\Execute SQL - Truncate PowerShell_PBIWorkspace"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="161.75,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,94.9"
+              Start="0,0"
+              End="0,87.4">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,87.4" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task - Power BI Workspace">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="305.6,41.6"
+          Id="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace"
+          TopLeft="44,178" />
+        <NodeLayout
+          Size="225.6,41.6"
+          Id="Package\Data Flow Task - Power BI Workspace\Flat File Source - Power BI CSV"
+          TopLeft="79,36" />
+        <EdgeLayout
+          Id="Package\Data Flow Task - Power BI Workspace.Paths[Flat File Source Output]"
+          TopLeft="194.3,77.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,100.4"
+              Start="0,0"
+              End="0,92.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task - Power BI Workspace\OLE DB Destination - PowerShell_PBIWorkspace">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

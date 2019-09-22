@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="OLEDB_Dest_BITools"
+  DTS:DTSID="{B1B48B74-DD04-4E08-94C7-DBADFD4CC7AE}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=localhost;Initial Catalog=BITools;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-{B1B48B74-DD04-4E08-94C7-DBADFD4CC7AE}OLEDB_Dest_HQREPORTDB;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
