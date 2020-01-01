@@ -331,7 +331,7 @@ namespace PowerBIDataExportSample
 
             Console.WriteLine("Login method?");
             Console.WriteLine("[1] Interactive login prompt");
-            Console.WriteLine("[2] Saved credentials in .config file");
+            Console.WriteLine("[2] Saved credential in program source file");
             Console.WriteLine("");
 
             key = Console.ReadKey().KeyChar.ToString();
@@ -345,7 +345,7 @@ namespace PowerBIDataExportSample
             }
             else if (key == "2")
             {
-                Console.WriteLine("Executing using saved credentials.");
+                Console.WriteLine("Executing using saved credential.");
                 pbi.Execute("SavedCredential");
             }
             else
