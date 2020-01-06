@@ -112,6 +112,8 @@ namespace PowerBIServiceGatewayExport
             if (pwRead.Length > 0)
             {
                 Password = DecryptString(pwRead);
+                if (Password == null)
+                {
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine("- Password not read from file (blank value or incorrect encryption stored.");
