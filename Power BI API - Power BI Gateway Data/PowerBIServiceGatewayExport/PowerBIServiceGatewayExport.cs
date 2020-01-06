@@ -112,6 +112,10 @@ namespace PowerBIServiceGatewayExport
             if (pwRead.Length > 0)
             {
                 Password = DecryptString(pwRead);
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("- Password not read from file (blank value or incorrect encryption stored.");
+                }
             }
         }
 
@@ -149,7 +153,7 @@ namespace PowerBIServiceGatewayExport
             // Check for args, if none, set default settings
             if (args.Length == 0)
             {
-                Console.WriteLine("- No arguments specified, running in default mode (/gatewayagents).  Run with /help to see available options.");
+                Console.WriteLine("- No arguments specified, running in default mode.  Run with /help to see available options.");
                 Console.WriteLine("");
 
                 // Default settings
@@ -481,7 +485,6 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("     Usually this is due to an invalid username or password.");
                 Console.WriteLine("");
                 Console.WriteLine("     Details: " + ex.Message);
-                authResult = null;
             }
 
             return authResult;
@@ -499,7 +502,7 @@ namespace PowerBIServiceGatewayExport
 
             try
             {
-                // Query Azure AD for an interactive login prompt and subsequent Power BI auth token
+                // Query Azure AD for an interactive login prompt and provide it with credentials and get subsequent Power BI auth token
                 AuthenticationContext authContext = new AuthenticationContext(AuthorityURL);
 
                 UserPasswordCredential userPasswordCredential = new UserPasswordCredential(UserName, Password);
@@ -517,7 +520,6 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("     Usually this is due to an invalid username or password.");
                 Console.WriteLine("");
                 Console.WriteLine("     Details: " + ex.Message);
-                authResult = null;
             }
 
             return authResult;
@@ -538,20 +540,49 @@ namespace PowerBIServiceGatewayExport
             // If saved credentials in use, attempt to login with them
             if ((!String.IsNullOrEmpty(UserName) && Password != null && Password.Length > 0) && isInteractive == false)
             {
+                Console.WriteLine("   - Attempting login with saved credentials.");
                 authResult = GetAuthUserLoginSavedCredential();
+
+                // Wait for the authentication to complete to check the result
+                if (authResult != null)
+                {
+                    authResult.Wait();
+                }
             }
 
             // If saved credentials not in use or failed, prompt for interactive login
-            if ((String.IsNullOrEmpty(UserName) && (Password.Length == 0 || Password == null) || authResult == null) || isInteractive == true)
+            if ((String.IsNullOrEmpty(UserName) && Password == null) || authResult.Result == null || isInteractive == true)
             {
+                Console.Write("   - Attempting login with interactive credentials");
+                if (String.IsNullOrEmpty(UserName))
+                {
+                    Console.Write(" (Username empty)");
+                }
+                if (Password == null)
+                {
+                    Console.Write(" (Password empty or not decrypted)");
+                }
+                if (isInteractive == true)
+                {
+                    Console.Write(" (Interactive login requested)");
+                }
+                if (authResult.Result == null && !String.IsNullOrEmpty(UserName) && Password != null)
+                {
+                    Console.Write(" (Saved authentication failed)");
+                }
+                Console.WriteLine("");
                 authResult = GetAuthUserLoginInteractive();
+
+                // Wait for the authentication to complete to check the result
+                if (authResult != null)
+                {
+                    authResult.Wait();
+                }
             }
 
             // If authentication result received, get the token
-            if (authResult != null)
+            if (authResult.Result != null)
             {
-                authResult.Wait();
-
                 var auth = authResult.Result;
 
                 if (auth != null)
