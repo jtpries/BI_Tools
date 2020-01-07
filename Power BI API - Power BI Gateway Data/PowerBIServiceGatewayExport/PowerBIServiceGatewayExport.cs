@@ -583,18 +583,28 @@ namespace PowerBIServiceGatewayExport
             }
 
             // If authentication result received, get the token
-            if (authResult.Result != null)
+            if (authResult != null)
             {
-                var auth = authResult.Result;
-
-                if (auth != null)
+                if (authResult.Result != null)
                 {
-                    authToken = auth.CreateAuthorizationHeader();
+                    authToken = authResult.Result.CreateAuthorizationHeader();
                     if (authToken.Substring(0, 6) == "Bearer")
                     {
                         Console.WriteLine("   - API Authorization token received.");
                     }
+                    else
+                    {
+                        Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                    }
                 }
+                else
+                {
+                    Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("   - Unable to retrieve API Authorization token.");
             }
 
             return authToken;

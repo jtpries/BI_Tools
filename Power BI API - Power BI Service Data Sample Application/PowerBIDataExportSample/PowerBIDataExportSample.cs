@@ -125,7 +125,6 @@ namespace PowerBIDataExportSample
                 Console.WriteLine("     Usually this is due to an invalid username or password.");
                 Console.WriteLine("");
                 Console.WriteLine("     Details: " + ex.Message);
-                authResult = null;
             }
 
             return authResult;
@@ -145,26 +144,37 @@ namespace PowerBIDataExportSample
             if (authType == "SavedCredential")
             {
                 authResult = GetAuthUserLoginSavedCredential();
+                authResult.Wait();  // Wait for the authentication to be attempted
             }
             else
             {
                 authResult = GetAuthUserLoginInteractive();
+                authResult.Wait();  // Wait for the authentication to be attempted
             }
 
+            // If authentication result received, get the token
             if (authResult != null)
             {
-                authResult.Wait();
-
-                var auth = authResult.Result;
-
-                if (auth != null)
+                if (authResult.Result != null)
                 {
-                    authToken = auth.CreateAuthorizationHeader();
+                    authToken = authResult.Result.CreateAuthorizationHeader();
                     if (authToken.Substring(0, 6) == "Bearer")
                     {
                         Console.WriteLine("   - API Authorization token received.");
                     }
+                    else
+                    {
+                        Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                    }
                 }
+                else
+                {
+                    Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("   - Unable to retrieve API Authorization token.");
             }
 
             return authToken;
