@@ -7,12 +7,10 @@
 
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security;
@@ -32,9 +30,9 @@ namespace PowerBIServiceGatewayExport
 
         // Constants
         const string VERSION = "0.1";
-        const string HTTPHEADUSERAGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36";
 
         // Variables 
+        string HttpHeadUserAgent = "";
         HttpClient noAuthClient = null;
         HttpClient gatewayClient = null;
         string destDBConnString;
@@ -64,12 +62,22 @@ namespace PowerBIServiceGatewayExport
 
         DataTable GatewayAgents = null;
 
+        enum ExitCodes : int
+        {
+            Success = 0,
+            Warning = 100,
+            Warning_Authentication = 101,
+            Error = 1000,
+            Error_Authentication = 1001
+        }
+
         /// ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ///
         ///
         /// Default Class constructor
         ///  
         public PowerBIServiceGatewayExport()
         {
+            Environment.ExitCode = (int)ExitCodes.Success; // Success unless specified otherwise elsewhere
             ReadSettings();
         }
 
@@ -96,6 +104,7 @@ namespace PowerBIServiceGatewayExport
             }
 
             // Read the App Settings
+            HttpHeadUserAgent = ConfigurationManager.AppSettings["HttpUserAgentString"];
             AuthorityURL = ConfigurationManager.AppSettings["AzureADAuthorityURL"];
             GlobalServiceEndpoint = ConfigurationManager.AppSettings["GlobalServiceEndpoint"];
             ServiceConfigPath = ConfigurationManager.AppSettings["ServiceConfigPath"];
@@ -174,7 +183,13 @@ namespace PowerBIServiceGatewayExport
                     if (argStr == "/?" || argStr == "/help")
                     {
                         Console.WriteLine("");
-                        Console.WriteLine("Text here");
+                        Console.WriteLine("This is a sample program to query Power BI Gateway information from the Power Platform API.");
+                        Console.WriteLine("");
+                        Console.WriteLine("By default, it will attempt to use credentials saved in the .config file and if those fail, it will prompt for credentials.");
+                        Console.WriteLine("If you wish, instead, to only prompt for credentials, run with the /interactive option.");
+                        Console.WriteLine("");
+                        Console.WriteLine("The password saved in the .config file is encrypted.  To save a new password in the file, use the /savepassword:<password> command (without <>'s)");
+                        Console.WriteLine("Note that the .config file should be treated as sensitive and secured as it is possible to decrypt a password from this file.");
                         Console.WriteLine("");
                         Console.WriteLine("Options:");
                         Console.WriteLine("     /interactive                    - Login with an interactive login prompt");
@@ -195,65 +210,54 @@ namespace PowerBIServiceGatewayExport
                         isDBOutput = true;
                         isGatewayAgents = true;
                     }
-                    else if (argStr.Length >= 5)
+                    else if (argStr.Contains("/saveusername"))
                     {
-                        if (argStr.Substring(0, 5) == "/save")
+                        // Username
+                        if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length == 13)
                         {
-                            // Save config settings
-                            if (argStr.Length >= 13)
-                            {
-                                // Password
-                                if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length == 13)
-                                {
-                                    Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
-                                    isStop = true;
-                                    break;
-                                }
-                                else if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length >= 14)
-                                {
-                                    if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
-                                    {
-                                        Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
-                                        isStop = true;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        isUpdatePassword = true;
-                                        Password = new NetworkCredential("", arg.Substring(14)).SecurePassword;
-                                        break;
-                                    }
-                                }
-
-                                // Username
-                                if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length == 13)
-                                {
-                                    Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
-                                    isStop = true;
-                                    break;
-                                }
-                                else if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length >= 14)
-                                {
-                                    if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
-                                    {
-                                        Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
-                                        isStop = true;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        isUpdateUsername = true;
-                                        UserName = arg.Substring(14);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid command option entered: " + arg);
+                            Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
                             isStop = true;
                             break;
+                        }
+                        else if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length >= 14)
+                        {
+                            if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
+                            {
+                                Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
+                                isStop = true;
+                                break;
+                            }
+                            else
+                            {
+                                isUpdateUsername = true;
+                                UserName = arg.Substring(14);
+                                break;
+                            }
+                        }
+                    }
+                    else if (argStr.Contains("/savepassword"))
+                    {
+                        // Password
+                        if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length == 13)
+                        {
+                            Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
+                            isStop = true;
+                            break;
+                        }
+                        else if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length >= 14)
+                        {
+                            if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
+                            {
+                                Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
+                                isStop = true;
+                                break;
+                            }
+                            else
+                            {
+                                isUpdatePassword = true;
+                                Password = new NetworkCredential("", arg.Substring(14)).SecurePassword;
+                                break;
+                            }
                         }
                     }
                     else
@@ -412,6 +416,7 @@ namespace PowerBIServiceGatewayExport
             catch
             {
                 retVal = null;
+                Environment.ExitCode = (int)ExitCodes.Warning_Authentication;
             }
 
             return (retVal);
@@ -453,6 +458,8 @@ namespace PowerBIServiceGatewayExport
             catch
             {
                 retVal = null;
+                Console.WriteLine("");
+                Console.WriteLine("- Stored password blank or unable to be decrypted.");
             }
 
             return (retVal);
@@ -487,6 +494,7 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("     Usually this is due to an invalid username or password.");
                 Console.WriteLine("");
                 Console.WriteLine("     Details: " + ex.Message);
+                Environment.ExitCode = (int)ExitCodes.Warning_Authentication;
             }
 
             return authResult;
@@ -522,6 +530,7 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("     Usually this is due to an invalid username or password.");
                 Console.WriteLine("");
                 Console.WriteLine("     Details: " + ex.Message);
+                Environment.ExitCode = (int)ExitCodes.Warning_Authentication;
             }
 
             return authResult;
@@ -553,7 +562,7 @@ namespace PowerBIServiceGatewayExport
             }
 
             // If saved credentials not in use or failed, prompt for interactive login
-            if ((String.IsNullOrEmpty(UserName) && Password == null) || authResult.Result == null || isInteractive == true)
+            if ((String.IsNullOrEmpty(UserName) && Password == null) || authResult == null || authResult.Result == null || isInteractive == true)
             {
                 Console.Write("   - Attempting login with interactive credentials");
                 if (String.IsNullOrEmpty(UserName))
@@ -568,9 +577,9 @@ namespace PowerBIServiceGatewayExport
                 {
                     Console.Write(" (Interactive login requested)");
                 }
-                if (authResult.Result == null && !String.IsNullOrEmpty(UserName) && Password != null)
+                if (authResult == null || authResult.Result == null && !String.IsNullOrEmpty(UserName) && Password != null)
                 {
-                    Console.Write(" (Saved authentication failed)");
+                    Console.Write(" (Saved authentication failed/skipped)");
                 }
                 Console.WriteLine("");
                 authResult = GetAuthUserLoginInteractive();
@@ -595,16 +604,19 @@ namespace PowerBIServiceGatewayExport
                     else
                     {
                         Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                        Environment.ExitCode = (int)ExitCodes.Error_Authentication;
                     }
                 }
                 else
                 {
                     Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                    Environment.ExitCode = (int)ExitCodes.Error_Authentication;
                 }
             }
             else
             {
                 Console.WriteLine("   - Unable to retrieve API Authorization token.");
+                Environment.ExitCode = (int)ExitCodes.Error_Authentication;
             }
 
             return authToken;
@@ -619,7 +631,7 @@ namespace PowerBIServiceGatewayExport
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             noAuthClient = new HttpClient();
-            noAuthClient.DefaultRequestHeaders.UserAgent.ParseAdd(HTTPHEADUSERAGENT);
+            noAuthClient.DefaultRequestHeaders.UserAgent.ParseAdd(HttpHeadUserAgent);
         }
 
         /// ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ///
@@ -643,7 +655,7 @@ namespace PowerBIServiceGatewayExport
 
             // Create the gateway management web client connection
             gatewayClient = new HttpClient();
-            gatewayClient.DefaultRequestHeaders.UserAgent.ParseAdd(HTTPHEADUSERAGENT);
+            gatewayClient.DefaultRequestHeaders.UserAgent.ParseAdd(HttpHeadUserAgent);
             gatewayClient.DefaultRequestHeaders.Add("Authorization", gatewayAuthToken);
 
             // Clear out the save password object
@@ -660,9 +672,21 @@ namespace PowerBIServiceGatewayExport
             HttpContent responseContent = null;
             string strContent = "";
 
+            string defaultAuthorityURL = "https://login.windows.net/common/oauth2/authorize";
+            string defaultPowerBIResourceURL = "https://analysis.windows.net/powerbi/api";
+            string defaultGatewayMgmtApplicationID = "ea0616ba-638b-4df5-95b9-636659ae5121";
+            string defaultPowerBIRedirectURL = "urn:ietf:wg:oauth:2.0:oob";
+
             PowerBIConfig rc = null;
 
             string serviceURL = "";
+
+            // Set initial defaults
+            AuthorityURL = defaultAuthorityURL;
+            PowerBIResourceURL = defaultPowerBIResourceURL;
+            GatewayMgmtApplicationID = defaultGatewayMgmtApplicationID;
+            PowerBIRedirectURL = defaultPowerBIRedirectURL;
+
 
             if (String.IsNullOrEmpty(UserName) || isInteractive == true)
             {
@@ -732,7 +756,7 @@ namespace PowerBIServiceGatewayExport
                                             if (!String.IsNullOrEmpty(serviceEndpoint))
                                             {
                                                 // Use a static default
-                                                AuthorityURL = "https://login.windows.net/common/oauth2/authorize";
+                                                AuthorityURL = defaultAuthorityURL;
                                             }
                                             else
                                             {
@@ -752,7 +776,7 @@ namespace PowerBIServiceGatewayExport
                                             // If the value read from the MS backendis empty
                                             if (!String.IsNullOrEmpty(serviceResourceID))
                                             {
-                                                PowerBIResourceURL = "https://analysis.windows.net/powerbi/api";
+                                                PowerBIResourceURL = defaultPowerBIResourceURL;
                                             }
                                             else
                                             {
@@ -810,7 +834,7 @@ namespace PowerBIServiceGatewayExport
                                             // If the value read from the MS backend is empty
                                             if (!String.IsNullOrEmpty(clientAppID))
                                             {
-                                                GatewayMgmtApplicationID = "ea0616ba-638b-4df5-95b9-636659ae5121";
+                                                GatewayMgmtApplicationID = defaultGatewayMgmtApplicationID;
                                             }
                                             else
                                             {
@@ -826,7 +850,7 @@ namespace PowerBIServiceGatewayExport
                                             // If the value read from the MS backend is empty
                                             if (!String.IsNullOrEmpty(clientRedirectURI))
                                             {
-                                                PowerBIRedirectURL = "urn:ietf:wg:oauth:2.0:oob";
+                                                PowerBIRedirectURL = defaultPowerBIRedirectURL;
                                             }
                                             else
                                             {
@@ -844,17 +868,20 @@ namespace PowerBIServiceGatewayExport
                     }
                     else
                     {
-                        Console.WriteLine("   - No content received.");
+                        Console.WriteLine("   - No response content received for Power Platform Service Configuration request.");
+                        Environment.ExitCode = (int)ExitCodes.Warning;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("   - API Access Error: " + ex.ToString());
+                    Console.WriteLine("   - Power Platform API Access Error (Service Configuration): " + ex.ToString());
+                    Environment.ExitCode = (int)ExitCodes.Warning;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("   - API Access Error: " + ex.ToString());
+                Console.WriteLine("   - Power Platform API Access Error (Service Configuration): " + ex.ToString());
+                Environment.ExitCode = (int)ExitCodes.Warning;
             }
         }
 
@@ -868,9 +895,15 @@ namespace PowerBIServiceGatewayExport
             HttpContent responseContent = null;
             string strContent = "";
 
+            string defaultGatewayMgmtEndpoint = "https://wabi-west-us-redirect.analysis.windows.net/";
+
             PowerBIBackend rc = null;
 
             string serviceURL = GlobalServiceEndpoint + ServiceBackendPath;
+
+            // Set initial defaults
+            GatewayMgmtEndpoint = defaultGatewayMgmtEndpoint;
+
 
             try
             {
@@ -913,24 +946,27 @@ namespace PowerBIServiceGatewayExport
                             }
                             else
                             {
-                                GatewayMgmtEndpoint = "https://wabi-west-us-redirect.analysis.windows.net/";
+                                GatewayMgmtEndpoint = defaultGatewayMgmtEndpoint;
                             }
 
                         } // rc
                     }
                     else
                     {
-                        Console.WriteLine("   - No content received.");
+                        Console.WriteLine("   - No response content received for Power Platform Service Backend request");
+                        Environment.ExitCode = (int)ExitCodes.Warning;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("   - API Access Error: " + ex.ToString());
+                    Console.WriteLine("   - Power Platform API Access Error (Service Backend): " + ex.ToString());
+                    Environment.ExitCode = (int)ExitCodes.Warning;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("   - API Access Error: " + ex.ToString());
+                Console.WriteLine("   - Power Platform API Access Error (Service Backend): " + ex.ToString());
+                Environment.ExitCode = (int)ExitCodes.Warning;
             }
         }
 
@@ -1224,35 +1260,39 @@ namespace PowerBIServiceGatewayExport
                         {
                             try
                             {
-                                WriteOutDBTable(OutputTableName, GatewayAgents);
+                                WriteDBTable(OutputTableName, GatewayAgents);
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine("   - Error writing data to database.  Detail: " + ex.ToString());
+                                Environment.ExitCode = (int)ExitCodes.Error;
                             }
                         }
                     }
                     else
                     {
                         Console.WriteLine("   - No content received.");
+                        Environment.ExitCode = (int)ExitCodes.Error;
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("   - API Access Error: " + ex.ToString());
+                    Environment.ExitCode = (int)ExitCodes.Error;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("   - API Access Error: " + ex.ToString());
+                Environment.ExitCode = (int)ExitCodes.Error;
             }
         }
 
         /// ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ///
         ///
-        /// WriteOutDBTable Method
+        /// WriteDBTable Method
         /// 
-        public void WriteOutDBTable(string destTableName, DataTable outputTable)
+        public void WriteDBTable(string destTableName, DataTable outputTable)
         {
             // Write out the DataTables to SQL database
             using (SqlConnection connection = new SqlConnection(connString))
@@ -1309,6 +1349,7 @@ namespace PowerBIServiceGatewayExport
                 catch (Exception e)
                 {
                     Console.WriteLine("      - Unable to truncate temp table: " + sqltable + "  Error:" + e.ToString());
+                    Environment.ExitCode = (int)ExitCodes.Error;
                 }
 
                 connection.Close();
@@ -1339,7 +1380,8 @@ namespace PowerBIServiceGatewayExport
                 }
             }
             catch
-            { }
+            {
+            }
 
             return (retVal);
         }
@@ -1370,7 +1412,8 @@ namespace PowerBIServiceGatewayExport
                 }
             }
             catch
-            { }
+            {
+            }
 
             return (retVal);
         }
@@ -1411,7 +1454,8 @@ namespace PowerBIServiceGatewayExport
                 }
             }
             catch
-            { }
+            {
+            }
 
             return (retVal);
         }
@@ -1441,7 +1485,8 @@ namespace PowerBIServiceGatewayExport
                 }
             }
             catch
-            { }
+            {
+            }
 
             return (retVal);
         }
