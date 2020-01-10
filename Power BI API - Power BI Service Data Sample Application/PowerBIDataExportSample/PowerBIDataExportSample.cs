@@ -187,7 +187,7 @@ namespace PowerBIDataExportSample
         public void InitHttpClient(string authToken)
         {
             Console.WriteLine("");
-            Console.WriteLine("- Initialzing client with generated auth token...");
+            Console.WriteLine("- Initializing client with generated auth token...");
 
             // Create the web client connection
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;

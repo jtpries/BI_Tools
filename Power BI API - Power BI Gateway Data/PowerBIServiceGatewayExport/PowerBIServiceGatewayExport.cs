@@ -643,7 +643,7 @@ namespace PowerBIServiceGatewayExport
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             Console.WriteLine("");
-            Console.Write("- Initialzing Gateway Mgmt API client with generated auth token [");
+            Console.Write("- Initializing Gateway Mgmt API client with generated auth token [");
             if (gatewayAuthToken.Length >= 40)
             {
                 Console.WriteLine(gatewayAuthToken.Substring(0, 40) + "...]");
@@ -1015,7 +1015,7 @@ namespace PowerBIServiceGatewayExport
                 response = gatewayClient.GetAsync(serviceURL).Result;
 
                 Console.WriteLine("   - Response code received: " + response.StatusCode);
-                //Console.WriteLine(response);  // debug
+                
                 try
                 {
                     responseContent = response.Content;
