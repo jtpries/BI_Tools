@@ -29,7 +29,7 @@ namespace PowerBIServiceGatewayExport
         ///    
 
         // Constants
-        const string VERSION = "0.1";
+        const string VERSION = "1.0";
 
         // Variables 
         string HttpHeadUserAgent = "";
@@ -57,6 +57,7 @@ namespace PowerBIServiceGatewayExport
         bool isInteractive = false;
         bool isUpdatePassword = false;
         bool isUpdateUsername = false;
+        bool isUpdateInteractive = false;
         bool isGatewayAgents = false;
         bool isDBOutput = false;
 
@@ -91,7 +92,7 @@ namespace PowerBIServiceGatewayExport
             encIV = Encoding.UTF8.GetBytes("4b1f9e8fb137fc01");
 
             // Read DB connection string - DestDB
-            var destDBConnStringObj = ConfigurationManager.ConnectionStrings["DestDB"];
+            var destDBConnStringObj = ConfigurationManager.ConnectionStrings["DestinationDB"];
             if (destDBConnStringObj != null)
             {
                 destDBConnString = destDBConnStringObj.ConnectionString;
@@ -194,7 +195,9 @@ namespace PowerBIServiceGatewayExport
                         Console.WriteLine("Options:");
                         Console.WriteLine("     /interactive                    - Login with an interactive login prompt");
                         Console.WriteLine("     /dboutput                       - Output the Gateway Agent query results to database table (must already exist)");
+                        Console.WriteLine("     /saveusername                   - Save a username value for non-interactive login (from an interactive prompt)");
                         Console.WriteLine("     /saveusername:<username>        - Save a username value for non-interactive login");
+                        Console.WriteLine("     /savepassword                   - Save an encrypted password value for non-interactive login (from an interactive prompt)");
                         Console.WriteLine("     /savepassword:<password>        - Save an encrypted password value for non-interactive login");
 
                         isStop = true;
@@ -210,54 +213,59 @@ namespace PowerBIServiceGatewayExport
                         isDBOutput = true;
                         isGatewayAgents = true;
                     }
-                    else if (argStr.Contains("/saveusername"))
+                    // Save config settings
+                    else if (argStr.Contains("/saveusername") || argStr.Contains("/saveusername"))
                     {
-                        // Username
-                        if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length == 13)
+                        // User Name
+                        if (argStr == "/saveusername:" || argStr == "/username:" || !argStr.Contains(":"))
                         {
-                            Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
+                            // Interactive
+                            isUpdateUsername = true;
+                            isUpdateInteractive = true;
                             isStop = true;
                             break;
                         }
-                        else if (argStr.Substring(0, 13) == "/saveusername" && argStr.Length >= 14)
+                        else if (argStr.Contains("/saveusername:") && argStr.Length > 14)
                         {
-                            if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
-                            {
-                                Console.WriteLine("To save a username to config, it must be in format:  /saveusername:<username value>");
-                                isStop = true;
-                                break;
-                            }
-                            else
-                            {
-                                isUpdateUsername = true;
-                                UserName = arg.Substring(14);
-                                break;
-                            }
+                            // Command line
+                            isUpdateUsername = true;
+                            isUpdateInteractive = false;
+                            UserName = arg.Substring(14);
+                            isStop = true;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("To save a Username to config, use /saveusername with no other options.");
+                            isStop = true;
+                            break;
                         }
                     }
-                    else if (argStr.Contains("/savepassword"))
+                    else if (argStr.Contains("/savepassword") || argStr.Contains("/password"))
                     {
                         // Password
-                        if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length == 13)
+                        if (argStr == "/savepassword:" || argStr == "/password:" || !argStr.Contains(":"))
                         {
-                            Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
+                            // Interactive
+                            isUpdatePassword = true;
+                            isUpdateInteractive = true;
                             isStop = true;
                             break;
                         }
-                        else if (argStr.Substring(0, 13) == "/savepassword" && argStr.Length >= 14)
+                        else if (argStr.Contains("/savepassword:") && argStr.Length > 14)
                         {
-                            if (argStr.Substring(13, 1) == ":" && argStr.Length < 15)
-                            {
-                                Console.WriteLine("To save a password to config, it must be in format:  /savepassword:<password value>");
-                                isStop = true;
-                                break;
-                            }
-                            else
-                            {
-                                isUpdatePassword = true;
-                                Password = new NetworkCredential("", arg.Substring(14)).SecurePassword;
-                                break;
-                            }
+                            // Command line
+                            isUpdatePassword = true;
+                            isUpdateInteractive = false;
+                            Password = new NetworkCredential("", arg.Substring(14)).SecurePassword;
+                            isStop = true;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("To save a Password to config, use /savepassword with no other options.");
+                            isStop = true;
+                            break;
                         }
                     }
                     else
@@ -282,15 +290,33 @@ namespace PowerBIServiceGatewayExport
 
             ParseArgs(args);
 
-            if (isUpdatePassword)
+            // Username Update
+            if (isUpdateUsername)
             {
-                SaveSetting("Password", "");
+                if (!isUpdateInteractive)
+                {
+                    SaveSetting("UserName", UserName);
+                }
+                else
+                {
+                    SaveSettingInteractive("UserName");
+                }
+
                 isStop = true;
             }
 
-            if (isUpdateUsername)
+            // Password Update
+            if (isUpdatePassword)
             {
-                SaveSetting("UserName", UserName);
+                if (!isUpdateInteractive)
+                {
+                    SaveSetting("Password", "");
+                }
+                else
+                {
+                    SaveSettingInteractive("Password");
+                }
+
                 isStop = true;
             }
 
@@ -354,7 +380,7 @@ namespace PowerBIServiceGatewayExport
                 config.AppSettings.Settings[settingName].Value = settingValue;
             }
 
-            config.Save(ConfigurationSaveMode.Full, true);
+            config.Save(ConfigurationSaveMode.Minimal, true);
             ConfigurationManager.RefreshSection("appSettings");
 
             if (settingName == "Password")
@@ -364,6 +390,66 @@ namespace PowerBIServiceGatewayExport
             else
             {
                 Console.WriteLine("   - " + settingName + " saved to configuration file.");
+            }
+        }
+
+        /// ----------------------------------------------------------------------------------------------------------------------------------------------------------------- ///
+        ///
+        /// SaveSettingInteractive Method
+        /// 
+        public void SaveSettingInteractive(string settingName)
+        {
+            string settingValue = "";
+
+            if (settingName == "ApplicationID")
+            {
+                Console.WriteLine("Enter the Application ID (GUID) which was assigned when the application was created for Power BI API access at https://portal.azure.com");
+                Console.WriteLine("");
+                Console.Write("Application ID: ");
+                settingValue = Console.ReadLine();
+
+                SaveSetting(settingName, settingValue);
+            }
+            else if (settingName == "UserName")
+            {
+                Console.WriteLine("Enter your Power BI Username, which will be used to authenticate to the Power BI API");
+                Console.WriteLine("");
+                Console.Write("Username: ");
+                settingValue = Console.ReadLine();
+
+                SaveSetting(settingName, settingValue);
+            }
+            else if (settingName == "Password")
+            {
+                Console.WriteLine("Enter your Power BI Password, which will be saved encrypted to the application's .config file and used to authenticate to the Power BI API");
+                Console.WriteLine("");
+                Console.Write("Password: ");
+                do
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+
+                    // Disallow backspace and enter from password value
+                    if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                    {
+                        settingValue += key.KeyChar;
+                        Console.Write("*");
+                    }
+                    else
+                    {
+                        if (key.Key == ConsoleKey.Backspace && settingValue.Length > 0)
+                        {
+                            settingValue = settingValue.Substring(0, (settingValue.Length - 1));
+                            Console.Write("\b \b");
+                        }
+                        else if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                    }
+                } while (true);
+
+                Password = new NetworkCredential("", settingValue).SecurePassword;
+                SaveSetting(settingName, "");
             }
         }
 
