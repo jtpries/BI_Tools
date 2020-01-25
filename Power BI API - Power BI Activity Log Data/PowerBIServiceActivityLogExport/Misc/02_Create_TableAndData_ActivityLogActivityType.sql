@@ -223,5 +223,7 @@ INSERT [it].[PBIActivityLogActivityType] ([ActivityTypeKey], [Activity], [Activi
 GO
 INSERT [it].[PBIActivityLogActivityType] ([ActivityTypeKey], [Activity], [ActivityGroup], [ActivityDescription], [ActivityNotes]) VALUES (98, N'ExportArtifact', N'Export / Print / Download', N'Export a Power BI Item', N'')
 GO
+INSERT [it].[PBIActivityLogActivityType] ([ActivityTypeKey], [Activity], [ActivityGroup], [ActivityDescription], [ActivityNotes]) VALUES (99, N'ExportActivityEvents', N'Admin / Security', N'Export Power BI Activity Log data', N'')
+GO
 SET IDENTITY_INSERT [it].[PBIActivityLogActivityType] OFF
 GO
