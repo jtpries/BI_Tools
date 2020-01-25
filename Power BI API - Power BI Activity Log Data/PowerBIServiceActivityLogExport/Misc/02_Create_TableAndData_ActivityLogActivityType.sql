@@ -13,10 +13,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [it].[PBIActivityLogActivityType](
 	[ActivityTypeKey] [int] IDENTITY(1,1) NOT NULL,
-	[Activity] [nvarchar](200) NULL,
-	[ActivityGroup] [nvarchar](100) NULL,
-	[ActivityDescription] [nvarchar](1000) NULL,
-	[ActivityNotes] [nvarchar](4000) NULL,
+	[Activity] [varchar](200) NULL,
+	[ActivityGroup] [varchar](100) NULL,
+	[ActivityDescription] [varchar](1000) NULL,
+	[ActivityNotes] [varchar](4000) NULL,
  CONSTRAINT [PK_PBIActivityLogActivityType] PRIMARY KEY CLUSTERED 
 (
 	[ActivityTypeKey] ASC

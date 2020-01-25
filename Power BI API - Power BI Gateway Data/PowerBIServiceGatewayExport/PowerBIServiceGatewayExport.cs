@@ -571,7 +571,7 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("        Application ID: " + GatewayMgmtApplicationID);
                 Console.WriteLine("        Redirect URL: " + PowerBIRedirectURL);
 
-                authResult = await authContext.AcquireTokenAsync(PowerBIResourceURL, GatewayMgmtApplicationID, new Uri(PowerBIRedirectURL), parameters);
+                authResult = await authContext.AcquireTokenAsync(PowerBIResourceURL, GatewayMgmtApplicationID, new Uri(PowerBIRedirectURL), parameters).ConfigureAwait(false);
 
             }
             catch (Exception ex)
@@ -608,7 +608,7 @@ namespace PowerBIServiceGatewayExport
                 Console.WriteLine("        Application ID: " + GatewayMgmtApplicationID);
                 Console.WriteLine("        Username: " + UserName);
 
-                authResult = await authContext.AcquireTokenAsync(PowerBIResourceURL, GatewayMgmtApplicationID, userPasswordCredential);
+                authResult = await authContext.AcquireTokenAsync(PowerBIResourceURL, GatewayMgmtApplicationID, userPasswordCredential).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -803,6 +803,7 @@ namespace PowerBIServiceGatewayExport
 
                         // Parse the JSON string into objects and store in DataTable
                         JavaScriptSerializer js = new JavaScriptSerializer();
+                        js.MaxJsonLength = 2147483647;
                         rc = js.Deserialize<PowerBIConfig>(strContent);
 
                         // Parse through rc

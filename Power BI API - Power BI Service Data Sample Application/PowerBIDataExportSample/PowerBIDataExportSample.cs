@@ -87,7 +87,7 @@ namespace PowerBIDataExportSample
             {
                 // Query Azure AD for an interactive login prompt and subsequent Power BI auth token
                 AuthenticationContext authContext = new AuthenticationContext(AuthorityURL);
-                authResult = await authContext.AcquireTokenAsync(ResourceURL, ApplicationID, new Uri(RedirectURL), parameters);
+                authResult = await authContext.AcquireTokenAsync(ResourceURL, ApplicationID, new Uri(RedirectURL), parameters).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace PowerBIDataExportSample
                 AuthenticationContext authContext = new AuthenticationContext(AuthorityURL);
 
                 UserPasswordCredential userPasswordCredential = new UserPasswordCredential(UserName, Password);
-                authResult = await authContext.AcquireTokenAsync(ResourceURL, ApplicationID, userPasswordCredential);
+                authResult = await authContext.AcquireTokenAsync(ResourceURL, ApplicationID, userPasswordCredential).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -230,6 +230,7 @@ namespace PowerBIDataExportSample
 
                         // Parse the JSON string into objects and store in DataTable
                         JavaScriptSerializer js = new JavaScriptSerializer();
+                        js.MaxJsonLength = 2147483647;  // Set the maximum json document size to the max
                         rc = js.Deserialize<PowerBIWorkspace>(strContent);
 
                         if (rc != null)
