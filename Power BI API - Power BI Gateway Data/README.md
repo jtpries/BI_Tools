@@ -5,5 +5,15 @@ This is a sample C# application to authenticate to Azure Active Directory and th
 
 This application is only a very basic sample with minimal functionality and not intended for any sort of production use. The basic concepts for authentication, querying the API, and parsing the resposne could be taken and turned into a much more robust application.
 
-For more information, see: (link TBD)
+Make sure to review the .config file for the application and to set the database connection string if using the save to database option.  Note that the password which can be saved in the .config file is done so via an encrypted value, stored by the application.  See its /help option for command line switches.
+
+Options:
+     /interactive                    - Login with an interactive login prompt
+     /dboutput                       - Output the Gateway Agent query results to database table (must already exist)
+     /saveusername                   - Save a username value for non-interactive login (from an interactive prompt)
+     /saveusername:<username>        - Save a username value for non-interactive login
+     /savepassword                   - Save an encrypted password value for non-interactive login (from an interactive prompt)
+     /savepassword:<password>        - Save an encrypted password value for non-interactive login
+
+For more information, see: https://blog.jpries.com/2020/01/10/power-bi-on-premises-gateway-cluster-monitoring/
 and https://blog.jpries.com/2020/01/03/getting-started-with-the-power-bi-api-querying-the-power-bi-rest-api-directly-with-c/
