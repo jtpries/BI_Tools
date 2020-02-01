@@ -17,7 +17,7 @@ Options:
      /saveusername                   - Save a username value for non-interactive login (from an interactive prompt)
      /saveusername:<username>        - Save a username value for non-interactive login
      /savepassword                   - Save an encrypted password value for non-interactive login (from an interactive prompt)
-     /savepassword:<password>        - Save an encrypted password value for non-interactive login
+     /savepassword:<password>        - Save an encrypted password value for non-interactive login - Save an encrypted password value for non-interactive login
 
 For more information, see: <link tbd>
 and https://blog.jpries.com/2020/01/03/getting-started-with-the-power-bi-api-querying-the-power-bi-rest-api-directly-with-c/
