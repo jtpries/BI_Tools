@@ -1,3 +1,29 @@
+USE BITools
+
+IF NOT EXISTS (SELECT name FROM sys.schemas WHERE [name] = N'etl')
+BEGIN
+	EXEC('CREATE SCHEMA [etl]')
+END
+GO
+
+IF NOT EXISTS (SELECT name FROM sys.schemas WHERE [name] = N'it')
+BEGIN
+	EXEC('CREATE SCHEMA [it]')
+END
+GO
+
+IF NOT EXISTS (SELECT name FROM sys.schemas WHERE [name] = N'stage')
+BEGIN
+	EXEC('CREATE SCHEMA [stage]')
+END
+GO
+
+IF NOT EXISTS (SELECT name FROM sys.schemas WHERE [name] = N'tmp')
+BEGIN
+	EXEC('CREATE SCHEMA [tmp]')
+END
+GO
+
 --------------------------------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS tmp.PBIActivityLogExtract
