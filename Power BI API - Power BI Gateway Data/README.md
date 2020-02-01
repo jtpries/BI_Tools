@@ -5,6 +5,8 @@ The application is a simple console application which makes uses of native .NET 
 
 This application is only a very basic sample with minimal functionality and not intended for any sort of production use. The basic concepts for authentication, querying the API, and parsing the resposne could be taken and turned into a much more robust application.
 
+If you wish to use the dboutput option of the program, make sure to first run the table scription script in the Misc subfolder to create the necessary SQL Server table to store the data in.
+
 Make sure to review the .config file for the application and to set the database connection string if using the save to database option.  Note that the password which can be saved in the .config file is done so via an encrypted value, stored by the application.  See its /help option for command line switches.
 
 Options:
