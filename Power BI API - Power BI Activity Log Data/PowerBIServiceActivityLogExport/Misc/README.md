@@ -1,4 +1,4 @@
-#Miscellaneous Support Files
+# Miscellaneous Support Files
 
 This files are used to create the database tables and other objects used by the PowerBIServiceActivityLogExport program.  Some files are zipped up to save space.  Files starting with a number should be executed in that order.  Files that do not start with a number are informational only and do not need to be run.
 
