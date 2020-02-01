@@ -8,16 +8,6 @@ This application is only a very basic sample with minimal functionality and not 
 Before running the application, you will need to have a SQL Server database with the appropriate objects created.  See the Misc subfolder for scripts to create these objects.
 
 Make sure to review the .config file for the application and to set the database connection string if using the save to database option.  Note that the password which can be saved in the .config file is done so via an encrypted value, stored by the application.  See its /help option for command line switches.
-Options:
-     /interactive                    - Login with an interactive login prompt
-     /activitystart:<mm/DD/yyyy>     - Start at a particular date (local time zone)
-     /activityend:<mm/DD/yyyy>       - End at a particular date (local time zone)
-     /saveapplicationid:             - Save the application id to the config file (from an interactive prompt)
-     /saveapplicationid:<app id>     - Save the application id to the config file
-     /saveusername                   - Save a username value for non-interactive login (from an interactive prompt)
-     /saveusername:<username>        - Save a username value for non-interactive login
-     /savepassword                   - Save an encrypted password value for non-interactive login (from an interactive prompt)
-     /savepassword:<password>        - Save an encrypted password value for non-interactive login - Save an encrypted password value for non-interactive login
 
 For more information, see: <link tbd>
 and https://blog.jpries.com/2020/01/03/getting-started-with-the-power-bi-api-querying-the-power-bi-rest-api-directly-with-c/
