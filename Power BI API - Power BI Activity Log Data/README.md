@@ -8,6 +8,7 @@ This application is only a very basic sample with minimal functionality and not 
 Before running the application, you will need to have a SQL Server database with the appropriate objects created.  See the Misc subfolder for scripts to create these objects.
 
 Make sure to review the .config file for the application and to set the database connection string if using the save to database option.  Note that the password which can be saved in the .config file is done so via an encrypted value, stored by the application.  See its /help option for command line switches.
+
 Options:
      /interactive                    - Login with an interactive login prompt
      /activitystart:<mm/DD/yyyy>     - Start at a particular date (local time zone)
