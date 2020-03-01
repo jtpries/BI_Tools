@@ -48,10 +48,10 @@ BEGIN
 				,DistributionMethod
 				,ConsumptionMethod
 				,BKWorkspaceID
-				,WorkspaceKey
+				,-1 AS WorkspaceKey
 				,WorkspaceName
 				,BKReportID
-				,ReportKey
+				,-1 AS ReportKey
 				,ReportName
 				,FolderDisplayName
 				,ImportSource
@@ -59,11 +59,11 @@ BEGIN
 				,ImportDisplayName
 				,DataConnectivityMode
 				,BKDatasetID
-				,DatasetKey
+				,-1 AS DatasetKey
 				,DatasetName
 				,RefreshType
 				,BKGatewayClusterID
-				,GatewayClusterKey
+				,-1 AS GatewayClusterKey
 				,GatewayClusterName
 				,GatewayClusterType
 				,BKArtifactID
@@ -329,10 +329,8 @@ BEGIN
 		,DistributionMethod
 		,ConsumptionMethod
 		,BKWorkspaceID
-		,WorkspaceKey
 		,WorkspaceName
 		,BKReportID
-		,ReportKey
 		,ReportName
 		,FolderDisplayName
 		,ImportSource
@@ -340,11 +338,9 @@ BEGIN
 		,ImportDisplayName
 		,DataConnectivityMode
 		,BKDatasetID
-		,DatasetKey
 		,DatasetName
 		,RefreshType
 		,BKGatewayClusterID
-		,GatewayClusterKey
 		,GatewayClusterName
 		,GatewayClusterType
 		,BKArtifactID
@@ -404,10 +400,8 @@ BEGIN
 		,al.DistributionMethod
 		,al.ConsumptionMethod
 		,al.WorkspaceID AS BKWorkspaceID
-		,-1 AS WorkspaceKey
 		,al.WorkspaceName
 		,al.ReportID AS BKReportID
-		,-1 AS ReportKey
 		,al.ReportName
 		,al.FolderDisplayName
 		,al.ImportSource
@@ -415,11 +409,9 @@ BEGIN
 		,al.ImportDisplayName
 		,al.DataConnectivityMode
 		,al.DatasetID AS BKDatasetID
-		,-1 AS DatasetKey
 		,al.DatasetName
 		,al.RefreshType
 		,al.GatewayID AS BKGatewayClusterID
-		,-1 AS GatewayClusterKey
 		,al.GatewayName AS GatewayClusterName
 		,al.GatewayType AS GatewayClusterType
 		,al.ArtifactID AS BKArtifactID
