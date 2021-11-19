@@ -1,11 +1,15 @@
 # Power BI API - Power BI Gatewy Data
 A sample C# application to authenticate to Azure Active Directory and the Power Platform Service to query Power BI Gateway Agent status for Power BI Gateways in an organization.
 
+NOTE:  This application uses ADAL for authentication.  It is recommended to use the newer MSAL library for authentication going forward.  For a sample of how to do this, please see this project:  https://github.com/jtpries/BI_Tools/tree/master/Power%20BI%20API%20-%20Power%20BI%20Gateway%20Data%20Sample%20(MSAL)
+The sample on this page won't be updated / maintained further and I recommend the MSAL sample for learning instead.
+
+
 The application is a simple console application which makes uses of native .NET libraries as well as the Microsoft Identity Model Client library for authenticating to Azure Active Directory.
 
 This application is only a very basic sample with minimal functionality and not intended for any sort of production use. The basic concepts for authentication, querying the API, and parsing the resposne could be taken and turned into a much more robust application.
 
-If you wish to use the dboutput option of the program, make sure to first run the table scription script in the Misc subfolder to create the necessary SQL Server table to store the data in.
+If you wish to use the dboutput option of the program, make sure to first run the table creation script in the Misc subfolder to create the necessary SQL Server table to store the data in.
 
 Make sure to review the .config file for the application and to set the database connection string if using the save to database option.  Note that the password which can be saved in the .config file is done so via an encrypted value, stored by the application.  See its /help option for command line switches.
 
